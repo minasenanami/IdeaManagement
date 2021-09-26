@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :idea do
-    category { nil }
-    body { "MyText" }
+    category
+    body { Faker::Lorem.characters(number: 10) }
   end
 end
