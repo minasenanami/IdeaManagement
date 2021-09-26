@@ -26,8 +26,22 @@ RSpec.describe "Api::V1::Categories", type: :request do
       end
     end
 
+    context "全情報がから無いとき" do
+      let(:params) { attributes_for(:category, name: nil).merge(attributes_for(:idea, body: nil)) }
+      it "作成に失敗する" do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
+
     context "カテゴリーが空のとき" do
       let(:params) { attributes_for(:category, name: nil).merge(attributes_for(:idea)) }
+      it "作成に失敗する" do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
+
+    context "bodyが空欄のとき" do
+      let(:params) { attributes_for(:category).merge(attributes_for(:idea, body: nil)) }
       it "作成に失敗する" do
         expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
       end
