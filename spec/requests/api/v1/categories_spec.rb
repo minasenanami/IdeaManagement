@@ -25,5 +25,12 @@ RSpec.describe "Api::V1::Categories", type: :request do
         expect(response).to have_http_status(:ok)
       end
     end
+
+    context "カテゴリーが空のとき" do
+      let(:params) { attributes_for(:category, name: nil).merge(attributes_for(:idea)) }
+      it "作成に失敗する" do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
   end
 end
