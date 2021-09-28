@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :category do
-    name { Faker::Color.color_name }
+    sequence(:name) { |n| "#{n}_#{Faker::Color.color_name}" }
   end
 end
