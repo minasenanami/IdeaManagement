@@ -86,7 +86,13 @@ RSpec.describe "Api::V1::Categories", type: :request do
     end
 
     context "リクエストしたカテゴリーが存在しないとき" do
+      let(:params) { attributes_for(:category) }
       it "404を返す" do
+        subject
+        res = JSON.parse(response.body)
+
+        expect(res["status"]).to eq "404"
+        expect(response).to have_http_status(:ok)
       end
     end
   end
