@@ -76,3 +76,7 @@ RSpec/ReturnFromStub:
 # context ごとに let! を使い分けたい場合があるため無効に
 RSpec/LetSetup:
   Enabled: false
+
+# let等の使用上限回数を5から10に変更
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
