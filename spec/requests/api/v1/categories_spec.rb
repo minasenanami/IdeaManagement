@@ -51,8 +51,8 @@ RSpec.describe "Api::V1::Categories", type: :request do
   describe "GET /api/v1/categories" do
     subject { get(api_v1_categories_path, params: params) }
 
-    let!(:ideas) { create_list(:idea, idea_count) }
-    let(:idea_count) { 4 }
+    let!(:ideas) { create_list(:idea, ideas_count) }
+    let(:ideas_count) { 4 }
     context "検索したカテゴリーのアイテムが存在する時" do
       let!(:category_item) { create(:category) }
       let!(:idea1) { create(:idea, category: category_item) }
@@ -71,7 +71,17 @@ RSpec.describe "Api::V1::Categories", type: :request do
     end
 
     context "リクエストが空のとき" do
-      it "登録されているアイデアの一覧を返す" do
+      let(:params) { nil }
+      let(:first_idea) { ideas.first }
+      it "登録されている全アイデアを一覧で返す" do
+        subject
+        res = JSON.parse(response.body)
+
+        expect(res["data"].count).to eq ideas_count
+        expect(res["data"][0].keys).to eq ["id", "category", "body", "created_at"]
+        expect(res["data"][0]["body"]).to eq first_idea.body
+        expect(res["data"][0]["created_at"]).to eq first_idea.created_at.to_i
+        expect(response).to have_http_status(:ok)
       end
     end
 
