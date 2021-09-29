@@ -29,10 +29,10 @@ class Api::V1::CategoriesController < ApplicationController
 
     def format(item)
       {
-        "id": item.id.to_s,
-        "category": item.category.name.to_s,
-        "body": item.body.to_s,
-        "created_at": item.created_at.to_i.to_s,
+        "id": item.id,
+        "category": item.category.name,
+        "body": item.body,
+        "created_at": item.created_at.to_i,
       }
     end
 
